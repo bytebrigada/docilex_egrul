@@ -1,0 +1,10 @@
+version: '3.8'
+
+services:
+  egrul-processor:
+    build:
+      context: .
+      dockerfile: Dockerfile
+    container_name: egrul-processor
+    environment:
+      - PYTHONUNBUFFERED=1

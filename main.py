@@ -11,11 +11,11 @@ inn_cache: Dict[str, str] = {}
 
 # Листы, где ИНН в колонке E (5-я, индекс 4)
 SHEETS_WITH_INN_IN_E = [
-    "МФК Татарстан",
-    "УК ЖКХ Татарстан",
-    "МКК ДВ",
-    "УК РС (Я)",
-    "МФК РС (Я)",
+    "Реестр поставщиков информации",
+    # "Действующие",
+    # "Действующие МФК",
+    # "Действующие МКК",
+    # "Исключенные",
 ]
 
 # Глобальные переменные для сохранения при прерывании
@@ -213,7 +213,7 @@ def process_sheet(df: pd.DataFrame, sheet_name: str) -> pd.DataFrame:
         print(f"Создание новой колонки '{fio_column_name}'")
         df[fio_column_name] = ""
 
-    for index, row in df.iterrows():
+    for index, row in df.iloc[27147:].iterrows():
         inn = row[inn_column]
 
         if pd.isna(inn) or str(inn).strip() == "":
@@ -288,5 +288,6 @@ if __name__ == "__main__":
     # Регистрируем обработчик Ctrl+C
     signal.signal(signal.SIGINT, signal_handler)
 
-    excel_file = "Список рассылки свод.xlsx"
+    excel_file = "Реестр поставщиков информации от  2026-01-26.xlsx"
+    print(excel_file)
     process_excel_file(excel_file)
